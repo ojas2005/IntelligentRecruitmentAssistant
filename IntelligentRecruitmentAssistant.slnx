@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/IRA.Api/IRA.Api.csproj" />
+    <Project Path="src/IRA.Application/IRA.Application.csproj" />
+    <Project Path="src/IRA.Domain/IRA.Domain.csproj" />
+    <Project Path="src/IRA.Infrastructure/IRA.Infrastructure.csproj" />
+    <Project Path="src/IRA.Web/IRA.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/IRA.IntegrationTests/IRA.IntegrationTests.csproj" />
+    <Project Path="tests/IRA.UnitTests/IRA.UnitTests.csproj" />
+  </Folder>
+</Solution>
