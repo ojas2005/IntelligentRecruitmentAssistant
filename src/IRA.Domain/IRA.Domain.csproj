@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Domain Layer.
+    Pure business model: entities, value objects, enums, business rules, validation rules.
+    IMPORTANT: No dependency on Azure SDKs or any external framework (per case study).
+  -->
+  <PropertyGroup>
+    <RootNamespace>IRA.Domain</RootNamespace>
+    <AssemblyName>IRA.Domain</AssemblyName>
+  </PropertyGroup>
+
+</Project>
