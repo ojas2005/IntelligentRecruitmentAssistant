@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Application Layer.
+    Use cases, orchestration contracts, DTOs, validators and command/query handlers.
+    Depends only on the Domain layer plus lightweight cross-cutting libraries.
+  -->
+  <PropertyGroup>
+    <RootNamespace>IRA.Application</RootNamespace>
+    <AssemblyName>IRA.Application</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.9.2" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IRA.Domain\IRA.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
