@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!--
+    API Layer — ASP.NET Core Web API (.NET 9).
+    Backend service layer exposing Auth, Resume, Candidate, JD, Matching,
+    Interview, Ranking and Audit endpoints. Secured with Microsoft Entra ID.
+  -->
+  <PropertyGroup>
+    <RootNamespace>IRA.Api</RootNamespace>
+    <AssemblyName>IRA.Api</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Identity.Web" Version="3.8.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IRA.Application\IRA.Application.csproj" />
+    <ProjectReference Include="..\IRA.Infrastructure\IRA.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
