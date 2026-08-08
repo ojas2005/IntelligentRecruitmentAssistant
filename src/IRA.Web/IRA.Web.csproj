@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!--
+    Presentation Layer — ASP.NET Core MVC (.NET 9).
+    Two portals: a recruiter portal and a candidate ("user") portal, gated by role.
+    Cookie auth over a JWT login against the Web API (Entra ID supported by the API too).
+  -->
+  <PropertyGroup>
+    <RootNamespace>IRA.Web</RootNamespace>
+    <AssemblyName>IRA.Web</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IRA.Application\IRA.Application.csproj" />
+  </ItemGroup>
+
+</Project>
