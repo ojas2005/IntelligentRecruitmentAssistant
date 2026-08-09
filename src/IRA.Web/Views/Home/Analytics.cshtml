@@ -1,0 +1,31 @@
+@model IReadOnlyList<AuditEntryDto>
+@{
+    ViewData["Title"] = "Recruitment Analytics";
+}
+
+<h2 class="mb-4">Recruitment Analytics &amp; Audit Trail</h2>
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-info">No audit activity recorded yet (admin access required to view the trail).</div>
+}
+else
+{
+    <table class="table table-sm table-striped bg-white">
+        <thead>
+        <tr><th>Time (UTC)</th><th>Actor</th><th>Action</th><th>Entity</th><th>Details</th></tr>
+        </thead>
+        <tbody>
+        @foreach (var e in Model)
+        {
+            <tr>
+                <td>@e.TimestampUtc.ToString("u")</td>
+                <td>@e.Actor</td>
+                <td><span class="badge bg-secondary">@e.Action</span></td>
+                <td>@e.EntityType</td>
+                <td>@e.Details</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

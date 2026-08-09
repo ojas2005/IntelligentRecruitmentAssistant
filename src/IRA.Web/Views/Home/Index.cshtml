@@ -1,0 +1,44 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2 class="mb-4">Recruitment Dashboard</h2>
+
+@if (!Model.ApiReachable)
+{
+    <div class="alert alert-warning">
+        <strong>Backend API not reachable.</strong> Start the API project (IRA.Api) and set <code>ApiBaseUrl</code>.
+        <br /><small>@Model.Error</small>
+    </div>
+}
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card p-3">
+            <div class="text-muted">Candidates</div>
+            <div class="stat-number text-primary">@Model.Candidates.Count</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3">
+            <div class="text-muted">Job Descriptions</div>
+            <div class="stat-number text-success">@Model.Jobs.Count</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3">
+            <div class="text-muted">Quick Actions</div>
+            <a class="btn btn-sm btn-primary mt-2" asp-controller="Resume" asp-action="Index">Upload Resumes</a>
+            <a class="btn btn-sm btn-outline-secondary mt-2" asp-controller="Ranking" asp-action="Index">Run Evaluation</a>
+        </div>
+    </div>
+</div>
+
+<div class="card p-3">
+    <h5>Flow of Execution</h5>
+    <p class="text-muted mb-0">
+        Extract → Analyze → Match → Generate Questions → Rank &nbsp;·&nbsp;
+        orchestrated by Semantic Kernel with RAG grounding and Reviewer validation.
+    </p>
+</div>
