@@ -1,0 +1,52 @@
+@model IReadOnlyList<IRA.Application.DTOs.JobDescriptionDto>
+@{
+    ViewData["Title"] = "Open Jobs";
+}
+
+<h1 class="h3 mb-3">💼 Open Roles</h1>
+
+@if (Model.Count == 0)
+{
+    <p class="text-muted">There are no open roles right now. Check back soon.</p>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var job in Model)
+        {
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-1">@job.Title</h5>
+                        @if (!string.IsNullOrWhiteSpace(job.Department))
+                        {
+                            <p class="text-muted small mb-2">@job.Department</p>
+                        }
+                        <p class="mb-2"><span class="badge bg-secondary">@job.MinYearsExperience.ToString("0.#")+ yrs</span></p>
+
+                        @if (job.RequiredSkills.Count > 0)
+                        {
+                            <h6 class="text-muted small mb-1">Required</h6>
+                            <div class="mb-2">
+                                @foreach (var skill in job.RequiredSkills)
+                                {
+                                    <span class="badge bg-primary me-1 mb-1">@skill</span>
+                                }
+                            </div>
+                        }
+                        @if (job.PreferredSkills.Count > 0)
+                        {
+                            <h6 class="text-muted small mb-1">Preferred</h6>
+                            <div>
+                                @foreach (var skill in job.PreferredSkills)
+                                {
+                                    <span class="badge bg-info text-dark me-1 mb-1">@skill</span>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

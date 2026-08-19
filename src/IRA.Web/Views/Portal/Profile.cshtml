@@ -1,0 +1,47 @@
+@model IRA.Application.DTOs.CandidateDto
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<h1 class="h3 mb-3">🧑‍💼 My Profile</h1>
+
+@if (Model is null)
+{
+    <div class="card border-0 bg-light">
+        <div class="card-body text-center py-5">
+            <div class="display-6">📄</div>
+            <p class="text-muted mt-2">You haven't uploaded a resume yet.</p>
+            <a asp-controller="Resume" asp-action="Index" class="btn btn-primary">Upload your resume</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card shadow-sm mb-3">
+        <div class="card-body">
+            <h4 class="card-title mb-1">@Model.FullName</h4>
+            <p class="text-muted mb-2">
+                @if (!string.IsNullOrWhiteSpace(Model.Email)) { <span>@Model.Email</span> }
+                @if (!string.IsNullOrWhiteSpace(Model.Location)) { <span> · @Model.Location</span> }
+            </p>
+            <p class="mb-3"><span class="badge bg-secondary">@Model.TotalYearsExperience.ToString("0.#") yrs experience</span></p>
+
+            <h6 class="text-muted">Skills</h6>
+            @if (Model.Skills.Count == 0)
+            {
+                <p class="text-muted small">No skills were extracted.</p>
+            }
+            else
+            {
+                <div>
+                    @foreach (var skill in Model.Skills)
+                    {
+                        <span class="badge bg-primary me-1 mb-1">@skill</span>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <a asp-controller="Resume" asp-action="Index" class="btn btn-outline-primary btn-sm">Upload a new resume</a>
+    <a asp-controller="Portal" asp-action="Jobs" class="btn btn-outline-secondary btn-sm">Browse open jobs</a>
+}

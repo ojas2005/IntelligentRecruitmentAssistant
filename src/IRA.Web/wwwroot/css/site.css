@@ -1,0 +1,20 @@
+body {
+    background-color: #f6f8fb;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.score-pill {
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    color: #fff;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+}

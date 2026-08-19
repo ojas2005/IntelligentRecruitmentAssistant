@@ -1,0 +1,41 @@
+@{
+    ViewData["Title"] = "My Portal";
+}
+
+<div class="p-4 mb-4 bg-light rounded-3 border">
+    <h1 class="h3">👋 Welcome, @User.Identity?.Name</h1>
+    <p class="text-muted mb-0">Your candidate portal — upload your resume, review your parsed profile, and browse open roles.</p>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <div class="display-6">📄</div>
+                <h5 class="card-title mt-2">Upload Resume</h5>
+                <p class="card-text text-muted small">Submit your resume — our AI extracts your skills and experience.</p>
+                <a asp-controller="Resume" asp-action="Index" class="btn btn-primary btn-sm">Upload</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <div class="display-6">🧑‍💼</div>
+                <h5 class="card-title mt-2">My Profile</h5>
+                <p class="card-text text-muted small">Review the skills and experience parsed from your resume.</p>
+                <a asp-controller="Portal" asp-action="Profile" class="btn btn-primary btn-sm">View profile</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <div class="display-6">💼</div>
+                <h5 class="card-title mt-2">Browse Jobs</h5>
+                <p class="card-text text-muted small">See the open roles recruiters are hiring for.</p>
+                <a asp-controller="Portal" asp-action="Jobs" class="btn btn-primary btn-sm">Browse</a>
+            </div>
+        </div>
+    </div>
+</div>
