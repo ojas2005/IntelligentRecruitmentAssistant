@@ -2,8 +2,11 @@
     ViewData["Title"] = "Access denied";
 }
 
-<div class="text-center py-5">
-    <h1 class="display-6">🚫 Access denied</h1>
-    <p class="text-muted">Your account doesn't have permission to view this page.</p>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Go to my home</a>
+<div class="hero">
+    <span class="eyebrow"><span class="dot" style="background:var(--bad);box-shadow:0 0 0 4px rgba(213,68,58,.15)"></span> Restricted</span>
+    <h1 class="display" style="font-size:clamp(2.4rem,6vw,4.5rem)">Access denied</h1>
+    <p class="sub">Your account doesn't have permission to view this page.</p>
+    <div class="cta-row">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg">Go to my home</a>
+    </div>
 </div>

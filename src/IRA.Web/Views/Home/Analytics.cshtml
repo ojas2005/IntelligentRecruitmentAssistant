@@ -3,29 +3,34 @@
     ViewData["Title"] = "Recruitment Analytics";
 }
 
-<h2 class="mb-4">Recruitment Analytics &amp; Audit Trail</h2>
+<div class="page-head">
+    <span class="section-label">Administrator</span>
+    <h1 class="mt-2">Analytics &amp; audit trail</h1>
+</div>
 
 @if (Model.Count == 0)
 {
-    <div class="alert alert-info">No audit activity recorded yet (admin access required to view the trail).</div>
+    <div class="alert alert-info">No audit activity recorded yet.</div>
 }
 else
 {
-    <table class="table table-sm table-striped bg-white">
-        <thead>
-        <tr><th>Time (UTC)</th><th>Actor</th><th>Action</th><th>Entity</th><th>Details</th></tr>
-        </thead>
-        <tbody>
-        @foreach (var e in Model)
-        {
-            <tr>
-                <td>@e.TimestampUtc.ToString("u")</td>
-                <td>@e.Actor</td>
-                <td><span class="badge bg-secondary">@e.Action</span></td>
-                <td>@e.EntityType</td>
-                <td>@e.Details</td>
-            </tr>
-        }
-        </tbody>
-    </table>
+    <div class="table-card reveal">
+        <table class="table table-striped align-middle mb-0">
+            <thead>
+            <tr><th>Time (UTC)</th><th>Actor</th><th>Action</th><th>Entity</th><th>Details</th></tr>
+            </thead>
+            <tbody>
+            @foreach (var e in Model)
+            {
+                <tr>
+                    <td class="text-muted small">@e.TimestampUtc.ToString("u")</td>
+                    <td class="fw-semibold">@e.Actor</td>
+                    <td><span class="badge bg-secondary">@e.Action</span></td>
+                    <td class="text-muted">@e.EntityType</td>
+                    <td class="small">@e.Details</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
 }

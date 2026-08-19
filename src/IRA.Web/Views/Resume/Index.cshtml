@@ -3,31 +3,41 @@
     var isCandidate = ViewBag.IsCandidate as bool? ?? false;
 }
 
-<h2 class="mb-4">@(isCandidate ? "Upload My Resume" : "Resume Upload Portal")</h2>
+<div class="page-head">
+    <span class="section-label">@(isCandidate ? "Candidate portal" : "Recruiter portal")</span>
+    <h1 class="mt-2">@(isCandidate ? "Upload my resume" : "Resume upload portal")</h1>
+</div>
 
-<div class="card p-4">
-    <form asp-action="Upload" method="post" enctype="multipart/form-data">
-        @Html.AntiForgeryToken()
-        <div class="mb-3">
-            @if (isCandidate)
-            {
-                <label class="form-label">Select your resume file</label>
-                <input type="file" name="files" class="form-control" accept=".txt,.pdf,.docx,.md,.json" required />
-                <div class="form-text">
-                    Your resume is stored, text is extracted (Azure Document Intelligence), parsed by the
-                    Resume Parser Agent, embedded and indexed — then linked to your profile.
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="glass p-4 p-md-5 reveal">
+            <form asp-action="Upload" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div class="mb-4">
+                    @if (isCandidate)
+                    {
+                        <label class="form-label">Select your resume file</label>
+                        <input type="file" name="files" class="form-control" accept=".txt,.pdf,.docx,.md,.json" required />
+                    }
+                    else
+                    {
+                        <label class="form-label">Select resume file(s) — bulk upload supported</label>
+                        <input type="file" name="files" class="form-control" multiple accept=".txt,.pdf,.docx,.md,.json" required />
+                    }
                 </div>
-            }
-            else
-            {
-                <label class="form-label">Select resume file(s) — bulk upload supported</label>
-                <input type="file" name="files" class="form-control" multiple accept=".txt,.pdf,.docx,.md,.json" required />
-                <div class="form-text">
-                    Files are stored, text is extracted (Azure Document Intelligence), parsed by the
-                    Resume Parser Agent, embedded and indexed for RAG.
-                </div>
-            }
+                <button type="submit" class="btn btn-primary btn-lg">Upload &amp; process</button>
+            </form>
         </div>
-        <button type="submit" class="btn btn-primary">Upload &amp; Process</button>
-    </form>
+    </div>
+    <div class="col-lg-5">
+        <div class="card lift p-4 h-100">
+            <span class="section-label">Ingestion pipeline</span>
+            <div class="feature-rows mt-3">
+                <div class="feature-row"><span><span class="num">01</span><span class="sep">/</span><span class="label">Store</span></span><span class="text-muted small">Blob storage</span></div>
+                <div class="feature-row"><span><span class="num">02</span><span class="sep">/</span><span class="label">Extract</span></span><span class="text-muted small">Document Intelligence</span></div>
+                <div class="feature-row"><span><span class="num">03</span><span class="sep">/</span><span class="label">Parse</span></span><span class="text-muted small">Resume Parser Agent</span></div>
+                <div class="feature-row"><span><span class="num">04</span><span class="sep">/</span><span class="label">Embed &amp; Index</span></span><span class="text-muted small">Vector store · RAG</span></div>
+            </div>
+        </div>
+    </div>
 </div>

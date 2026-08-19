@@ -2,40 +2,47 @@
     ViewData["Title"] = "My Portal";
 }
 
-<div class="p-4 mb-4 bg-light rounded-3 border">
-    <h1 class="h3">👋 Welcome, @User.Identity?.Name</h1>
-    <p class="text-muted mb-0">Your candidate portal — upload your resume, review your parsed profile, and browse open roles.</p>
-</div>
+<section class="hero" style="padding:2.5rem 0 2rem;text-align:left">
+    <span class="eyebrow"><span class="dot"></span> Candidate portal</span>
+    <h1 class="display" style="font-size:clamp(2.4rem,6vw,4.5rem)">Welcome,<br />@User.Identity?.Name.</h1>
+    <p class="sub" style="margin-left:0">Upload your resume, review your parsed profile, and browse the roles recruiters are hiring for.</p>
+</section>
 
-<div class="row g-3">
+<div class="row g-4">
     <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-                <div class="display-6">📄</div>
-                <h5 class="card-title mt-2">Upload Resume</h5>
-                <p class="card-text text-muted small">Submit your resume — our AI extracts your skills and experience.</p>
-                <a asp-controller="Resume" asp-action="Index" class="btn btn-primary btn-sm">Upload</a>
+        <a asp-controller="Resume" asp-action="Index" class="text-decoration-none">
+            <div class="card tilt lift p-4 h-100" data-tilt>
+                <div class="pop">
+                    <div style="font-size:2rem">📄</div>
+                    <h5 class="mt-2">Upload Resume</h5>
+                    <p class="text-muted small mb-3">Submit your resume — our AI extracts your skills and experience.</p>
+                    <span class="btn btn-primary btn-sm">Upload</span>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
     <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-                <div class="display-6">🧑‍💼</div>
-                <h5 class="card-title mt-2">My Profile</h5>
-                <p class="card-text text-muted small">Review the skills and experience parsed from your resume.</p>
-                <a asp-controller="Portal" asp-action="Profile" class="btn btn-primary btn-sm">View profile</a>
+        <a asp-controller="Portal" asp-action="Profile" class="text-decoration-none">
+            <div class="card tilt lift p-4 h-100" data-tilt>
+                <div class="pop">
+                    <div style="font-size:2rem">🧑‍💼</div>
+                    <h5 class="mt-2">My Profile</h5>
+                    <p class="text-muted small mb-3">Review the skills and experience parsed from your resume.</p>
+                    <span class="btn btn-primary btn-sm">View profile</span>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
     <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-                <div class="display-6">💼</div>
-                <h5 class="card-title mt-2">Browse Jobs</h5>
-                <p class="card-text text-muted small">See the open roles recruiters are hiring for.</p>
-                <a asp-controller="Portal" asp-action="Jobs" class="btn btn-primary btn-sm">Browse</a>
+        <a asp-controller="Portal" asp-action="Jobs" class="text-decoration-none">
+            <div class="card tilt lift p-4 h-100" data-tilt>
+                <div class="pop">
+                    <div style="font-size:2rem">💼</div>
+                    <h5 class="mt-2">Browse Jobs</h5>
+                    <p class="text-muted small mb-3">See the open roles recruiters are hiring for.</p>
+                    <span class="btn btn-primary btn-sm">Browse</span>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
 </div>

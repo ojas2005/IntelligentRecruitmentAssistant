@@ -3,7 +3,10 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<h2 class="mb-4">Recruitment Dashboard</h2>
+<section class="hero" style="padding:2.5rem 0 2rem;text-align:left">
+    <span class="eyebrow"><span class="dot"></span> Recruiter portal</span>
+    <h1 class="display" style="font-size:clamp(2.4rem,6vw,4.5rem)">Recruitment<br />dashboard.</h1>
+</section>
 
 @if (!Model.ApiReachable)
 {
@@ -13,32 +16,42 @@
     </div>
 }
 
-<div class="row g-3 mb-4">
+<div class="row g-4 mb-4">
     <div class="col-md-4">
-        <div class="card p-3">
-            <div class="text-muted">Candidates</div>
-            <div class="stat-number text-primary">@Model.Candidates.Count</div>
+        <div class="card tilt lift stat-tile h-100" data-tilt>
+            <div class="pop">
+                <span class="section-label">Candidates</span>
+                <div class="stat-number mt-2">@Model.Candidates.Count</div>
+            </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card p-3">
-            <div class="text-muted">Job Descriptions</div>
-            <div class="stat-number text-success">@Model.Jobs.Count</div>
+        <div class="card tilt lift stat-tile h-100" data-tilt>
+            <div class="pop">
+                <span class="section-label">Job descriptions</span>
+                <div class="stat-number mt-2">@Model.Jobs.Count</div>
+            </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card p-3">
-            <div class="text-muted">Quick Actions</div>
-            <a class="btn btn-sm btn-primary mt-2" asp-controller="Resume" asp-action="Index">Upload Resumes</a>
-            <a class="btn btn-sm btn-outline-secondary mt-2" asp-controller="Ranking" asp-action="Index">Run Evaluation</a>
+        <div class="card lift stat-tile h-100">
+            <span class="section-label">Quick actions</span>
+            <div class="d-grid gap-2 mt-3">
+                <a class="btn btn-primary" asp-controller="Resume" asp-action="Index">Upload resumes</a>
+                <a class="btn btn-outline-dark" asp-controller="Ranking" asp-action="Index">Run evaluation</a>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="card p-3">
-    <h5>Flow of Execution</h5>
-    <p class="text-muted mb-0">
-        Extract → Analyze → Match → Generate Questions → Rank &nbsp;·&nbsp;
-        orchestrated by Semantic Kernel with RAG grounding and Reviewer validation.
-    </p>
+<div class="card lift p-4 p-md-5 reveal">
+    <span class="section-label">What happens under the hood</span>
+    <h2 class="mt-2 mb-4" style="font-size:2rem">Conversations that build momentum</h2>
+    <div class="feature-rows">
+        <div class="feature-row"><span><span class="num">01</span><span class="sep">/</span><span class="label">Extract</span></span><span class="text-muted small">Resume Parser Agent · Document Intelligence</span></div>
+        <div class="feature-row"><span><span class="num">02</span><span class="sep">/</span><span class="label">Analyze &amp; Match</span></span><span class="text-muted small">Job Matching Agent · RAG grounding</span></div>
+        <div class="feature-row"><span><span class="num">03</span><span class="sep">/</span><span class="label">Generate Questions</span></span><span class="text-muted small">Interview Agent</span></div>
+        <div class="feature-row"><span><span class="num">04</span><span class="sep">/</span><span class="label">Rank &amp; Review</span></span><span class="text-muted small">Ranking Agent · Reviewer Agent</span></div>
+    </div>
+    <p class="text-muted small mt-3 mb-0">Orchestrated by Semantic Kernel with RAG grounding and Reviewer validation.</p>
 </div>

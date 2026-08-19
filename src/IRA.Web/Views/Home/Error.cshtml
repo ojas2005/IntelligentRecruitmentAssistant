@@ -1,5 +1,12 @@
 @{
     ViewData["Title"] = "Error";
 }
-<h2 class="text-danger">An error occurred</h2>
-<p>Something went wrong while processing your request.</p>
+
+<div class="hero">
+    <span class="eyebrow"><span class="dot" style="background:var(--bad);box-shadow:0 0 0 4px rgba(213,68,58,.15)"></span> Error</span>
+    <h1 class="display" style="font-size:clamp(2.4rem,6vw,4.5rem)">Something went wrong</h1>
+    <p class="sub">An error occurred while processing your request.</p>
+    <div class="cta-row">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg">Back to home</a>
+    </div>
+</div>

@@ -3,40 +3,47 @@
     ViewData["Title"] = "Log in";
 }
 
-<div class="row justify-content-center">
-    <div class="col-md-5">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h4 class="card-title mb-3">Log in</h4>
-                <form asp-controller="Account" asp-action="Login" method="post">
-                    <input type="hidden" asp-for="ReturnUrl" />
-                    <div asp-validation-summary="All" class="text-danger small mb-2"></div>
-                    <div class="mb-3">
-                        <label asp-for="Username" class="form-label"></label>
-                        <input asp-for="Username" class="form-control" autofocus />
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Password" class="form-label"></label>
-                        <input asp-for="Password" class="form-control" />
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Log in</button>
-                </form>
-                <hr />
-                <p class="small text-muted mb-1">New candidate? <a asp-controller="Account" asp-action="Register">Create an account</a>.</p>
-            </div>
-        </div>
+<section class="hero" style="padding-bottom:1rem">
+    <span class="eyebrow"><span class="dot"></span> AI-powered talent acquisition</span>
+    <h1 class="display">Hire with<br />momentum.</h1>
+    <p class="sub">
+        A multi-agent recruitment assistant — resume parsing, RAG-grounded matching,
+        interview generation and ranking, orchestrated end to end.
+    </p>
+</section>
 
-        <div class="card mt-3 border-0 bg-light">
-            <div class="card-body">
-                <h6 class="text-muted">Demo accounts <span class="text-muted">(password <code>Passw0rd!</code>)</span></h6>
-                <table class="table table-sm mb-0">
-                    <tbody>
-                        <tr><td><code>recruiter</code></td><td class="text-muted">Recruiter portal</td></tr>
-                        <tr><td><code>manager</code></td><td class="text-muted">Hiring Manager</td></tr>
-                        <tr><td><code>admin</code></td><td class="text-muted">Administrator (+ Analytics)</td></tr>
-                        <tr><td><code>candidate</code></td><td class="text-muted">Candidate portal</td></tr>
-                    </tbody>
-                </table>
+<div class="row justify-content-center g-4" style="margin-top:.5rem">
+    <div class="col-lg-5 col-md-6">
+        <div class="glass p-4 p-md-5 reveal">
+            <h4 class="mb-1">Log in</h4>
+            <p class="text-muted small mb-4">Welcome back. Choose a portal role below or use your own account.</p>
+            <form asp-controller="Account" asp-action="Login" method="post">
+                <input type="hidden" asp-for="ReturnUrl" />
+                <div asp-validation-summary="All" class="text-danger small mb-3"></div>
+                <div class="mb-3">
+                    <label asp-for="Username" class="form-label"></label>
+                    <input asp-for="Username" class="form-control" autofocus />
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-primary w-100 btn-lg">Log in</button>
+            </form>
+            <hr class="divider" />
+            <p class="small text-muted mb-0">New candidate? <a asp-controller="Account" asp-action="Register">Create an account →</a></p>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class="card lift p-4 h-100 reveal">
+            <span class="section-label">Demo accounts</span>
+            <p class="small text-muted mt-2 mb-3">Password <code>Passw0rd!</code> for all.</p>
+            <div class="feature-rows">
+                <div class="feature-row"><span><span class="num">01</span><span class="sep">/</span><span class="label">recruiter</span></span><span class="chip mb-0">Recruiter</span></div>
+                <div class="feature-row"><span><span class="num">02</span><span class="sep">/</span><span class="label">manager</span></span><span class="chip mb-0">Hiring Manager</span></div>
+                <div class="feature-row"><span><span class="num">03</span><span class="sep">/</span><span class="label">admin</span></span><span class="chip mb-0">Administrator</span></div>
+                <div class="feature-row"><span><span class="num">04</span><span class="sep">/</span><span class="label">candidate</span></span><span class="chip mb-0">Candidate</span></div>
             </div>
         </div>
     </div>
