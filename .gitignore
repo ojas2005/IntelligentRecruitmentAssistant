@@ -5,7 +5,7 @@ obj/
 [Dd]ebug/
 [Rr]elease/
 artifacts/
-
+.DS_Store
 ## Rider / VS
 .idea/
 .vs/
