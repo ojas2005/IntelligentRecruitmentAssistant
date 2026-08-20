@@ -15,18 +15,44 @@ public class AppUser
     public Guid? CandidateId { get; set; }
 }
 
-/// <summary>Account store backing the JWT login flow.</summary>
+/// <summary>Account store backing the JWT login flow (async to support durable back-ends).</summary>
 public interface IUserStore
 {
-    AppUser? Find(string username);
-    bool TryRegisterCandidate(string username, string password, string displayName, string? email, out AppUser? user);
-    void LinkCandidate(string username, Guid candidateId);
+    Task<AppUser?> FindAsync(string username, CancellationToken ct = default);
+
+    /// <summary>Registers a candidate. Returns the new account, or null if the username is taken.</summary>
+    Task<AppUser?> TryRegisterCandidateAsync(string username, string password, string displayName, string? email, CancellationToken ct = default);
+
+    Task LinkCandidateAsync(string username, Guid candidateId, CancellationToken ct = default);
+}
+
+/// <summary>Demo credentials seeded into every store back-end. Password: <c>Passw0rd!</c></summary>
+public static class DemoUsers
+{
+    public const string Password = "Passw0rd!";
+
+    public static IEnumerable<AppUser> Seed() => new[]
+    {
+        Make("recruiter", "Riya Recruiter", "recruiter@dev.local", RecruitmentRoles.Recruiter),
+        Make("manager", "Manish Hiring Manager", "manager@dev.local", RecruitmentRoles.HiringManager),
+        Make("admin", "Aditi Administrator", "admin@dev.local",
+            RecruitmentRoles.Recruiter, RecruitmentRoles.HiringManager, RecruitmentRoles.Administrator),
+        Make("candidate", "Chandra Candidate", "candidate@dev.local", RecruitmentRoles.Candidate),
+    };
+
+    private static AppUser Make(string username, string displayName, string email, params string[] roles) => new()
+    {
+        Username = username,
+        PasswordHash = PasswordHasher.Hash(Password),
+        DisplayName = displayName,
+        Email = email,
+        Roles = roles
+    };
 }
 
 /// <summary>
-/// In-memory account store seeded with demo credentials so the JWT flow works offline,
-/// mirroring the offline-fallback approach used across the rest of the solution.
-/// Demo password for every seeded account: <c>Passw0rd!</c>
+/// In-memory account store seeded with demo credentials so the JWT flow works offline.
+/// Used when Cosmos DB is not configured (registered accounts reset on restart).
 /// </summary>
 public class InMemoryUserStore : IUserStore
 {
@@ -34,20 +60,18 @@ public class InMemoryUserStore : IUserStore
 
     public InMemoryUserStore()
     {
-        const string demoPassword = "Passw0rd!";
-        Seed("recruiter", demoPassword, "Riya Recruiter", "recruiter@dev.local", RecruitmentRoles.Recruiter);
-        Seed("manager", demoPassword, "Manish Hiring Manager", "manager@dev.local", RecruitmentRoles.HiringManager);
-        Seed("admin", demoPassword, "Aditi Administrator", "admin@dev.local",
-            RecruitmentRoles.Recruiter, RecruitmentRoles.HiringManager, RecruitmentRoles.Administrator);
-        Seed("candidate", demoPassword, "Chandra Candidate", "candidate@dev.local", RecruitmentRoles.Candidate);
+        foreach (var user in DemoUsers.Seed())
+        {
+            _users[user.Username] = user;
+        }
     }
 
-    public AppUser? Find(string username) =>
-        _users.TryGetValue(username, out var user) ? user : null;
+    public Task<AppUser?> FindAsync(string username, CancellationToken ct = default) =>
+        Task.FromResult(_users.GetValueOrDefault(username));
 
-    public bool TryRegisterCandidate(string username, string password, string displayName, string? email, out AppUser? user)
+    public Task<AppUser?> TryRegisterCandidateAsync(string username, string password, string displayName, string? email, CancellationToken ct = default)
     {
-        user = new AppUser
+        var user = new AppUser
         {
             Username = username,
             PasswordHash = PasswordHasher.Hash(password),
@@ -56,24 +80,16 @@ public class InMemoryUserStore : IUserStore
             Roles = new[] { RecruitmentRoles.Candidate }
         };
 
-        return _users.TryAdd(username, user);
+        return Task.FromResult(_users.TryAdd(username, user) ? user : null);
     }
 
-    public void LinkCandidate(string username, Guid candidateId)
+    public Task LinkCandidateAsync(string username, Guid candidateId, CancellationToken ct = default)
     {
         if (_users.TryGetValue(username, out var user))
         {
             user.CandidateId = candidateId;
         }
-    }
 
-    private void Seed(string username, string password, string displayName, string email, params string[] roles) =>
-        _users[username] = new AppUser
-        {
-            Username = username,
-            PasswordHash = PasswordHasher.Hash(password),
-            DisplayName = displayName,
-            Email = email,
-            Roles = roles
-        };
+        return Task.CompletedTask;
+    }
 }

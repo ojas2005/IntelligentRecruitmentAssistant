@@ -10,6 +10,12 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ----- Local secrets overlay (gitignored): real Azure keys live here, never in source control -----
+builder.Configuration.AddJsonFile(
+    $"appsettings.{builder.Environment.EnvironmentName}.Local.json",
+    optional: true,
+    reloadOnChange: true);
+
 // ----- Azure Key Vault (secret management): pull secrets when a vault URI is configured -----
 var keyVaultUri = builder.Configuration[$"{AzureOptions.SectionName}:KeyVault:Uri"];
 if (!string.IsNullOrWhiteSpace(keyVaultUri))
@@ -43,7 +49,17 @@ if (!jwtOptions.IsConfigured)
 
 builder.Services.AddSingleton(jwtOptions);
 builder.Services.AddSingleton<JwtTokenService>();
-builder.Services.AddSingleton<IUserStore, InMemoryUserStore>();
+
+// User accounts persist in Cosmos DB when configured (durable across restarts), else in-memory.
+var cosmosOptions = builder.Configuration.GetSection($"{AzureOptions.SectionName}:CosmosDb").Get<CosmosDbOptions>() ?? new CosmosDbOptions();
+if (cosmosOptions.IsConfigured)
+{
+    builder.Services.AddSingleton<IUserStore, CosmosUserStore>();
+}
+else
+{
+    builder.Services.AddSingleton<IUserStore, InMemoryUserStore>();
+}
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

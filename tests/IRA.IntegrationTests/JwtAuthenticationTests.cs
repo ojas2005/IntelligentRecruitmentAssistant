@@ -5,6 +5,7 @@ using System.Text;
 using IRA.Application.DTOs;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.Configuration;
 using Xunit;
 
 namespace IRA.IntegrationTests;
@@ -22,7 +23,13 @@ public class JwtAuthenticationTests : IClassFixture<JwtAuthenticationTests.JwtAp
     /// <summary>Real Program with the JWT bearer scheme active (no header-auth override).</summary>
     public class JwtApiFactory : WebApplicationFactory<Program>
     {
-        protected override void ConfigureWebHost(IWebHostBuilder builder) => builder.UseEnvironment("Development");
+        protected override void ConfigureWebHost(IWebHostBuilder builder)
+        {
+            // "Testing" env avoids loading appsettings.Development.Local.json (real Azure keys);
+            // the override forces the offline fallbacks so this test is deterministic.
+            builder.UseEnvironment("Testing");
+            builder.ConfigureAppConfiguration((_, config) => config.AddInMemoryCollection(OfflineConfig.Overrides));
+        }
     }
 
     private async Task<AuthResultDto> LoginAsync(HttpClient client, string username, string password)

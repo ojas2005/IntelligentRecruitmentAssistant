@@ -12,8 +12,41 @@ public class AzureOptions
     public AzureSearchOptions Search { get; set; } = new();
     public DocumentIntelligenceOptions DocumentIntelligence { get; set; } = new();
     public BlobStorageOptions BlobStorage { get; set; } = new();
+    public CosmosDbOptions CosmosDb { get; set; } = new();
     public KeyVaultOptions KeyVault { get; set; } = new();
     public ApplicationInsightsOptions ApplicationInsights { get; set; } = new();
+}
+
+public class CosmosDbOptions
+{
+    /// <summary>Full connection string (alternative to AccountEndpoint + AccountKey).</summary>
+    public string ConnectionString { get; set; } = string.Empty;
+
+    /// <summary>e.g. https://your-account.documents.azure.com:443/ — used with AccountKey.</summary>
+    public string AccountEndpoint { get; set; } = string.Empty;
+
+    /// <summary>Primary/secondary key. Prefer Key Vault / Managed Identity in production.</summary>
+    public string AccountKey { get; set; } = string.Empty;
+
+    /// <summary>Database created if it does not exist.</summary>
+    public string DatabaseName { get; set; } = "RecruitmentDb";
+
+    /// <summary>
+    /// Set true only for a serverless Cosmos account (no throughput is provisioned). For a
+    /// provisioned account (incl. the free tier) leave false so containers share one throughput pool.
+    /// </summary>
+    public bool Serverless { get; set; }
+
+    /// <summary>
+    /// Shared database throughput (RU/s) for provisioned accounts. All containers share this one
+    /// pool, so the whole app costs a single 400 RU/s — fitting inside the 1000 RU/s free tier.
+    /// Ignored when <see cref="Serverless"/> is true.
+    /// </summary>
+    public int? Throughput { get; set; }
+
+    public bool IsConfigured =>
+        !string.IsNullOrWhiteSpace(ConnectionString) ||
+        (!string.IsNullOrWhiteSpace(AccountEndpoint) && !string.IsNullOrWhiteSpace(AccountKey));
 }
 
 public class AzureOpenAIOptions

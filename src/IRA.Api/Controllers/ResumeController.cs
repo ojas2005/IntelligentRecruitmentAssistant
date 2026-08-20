@@ -44,7 +44,7 @@ public class ResumeController : ControllerBase
         // A candidate uploading their own resume owns the parsed profile.
         if (_currentUser.IsInRole(RecruitmentRoles.Candidate))
         {
-            _users.LinkCandidate(_currentUser.Username, result.CandidateId);
+            await _users.LinkCandidateAsync(_currentUser.Username, result.CandidateId, ct);
         }
 
         return Ok(result);

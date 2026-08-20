@@ -11,6 +11,7 @@ using IRA.Infrastructure.Audit;
 using IRA.Infrastructure.Configuration;
 using IRA.Infrastructure.Documents;
 using IRA.Infrastructure.Persistence;
+using IRA.Infrastructure.Persistence.Cosmos;
 using IRA.Infrastructure.Search;
 using IRA.Infrastructure.Storage;
 using Microsoft.Extensions.Configuration;
@@ -36,10 +37,21 @@ public static class DependencyInjection
         services.AddSingleton(azure.Search);
         services.AddSingleton(azure.DocumentIntelligence);
         services.AddSingleton(azure.BlobStorage);
+        services.AddSingleton(azure.CosmosDb);
 
-        // ----- Persistence, audit, RAG retrieval (always available) -----
-        services.AddSingleton<ITalentRepository, InMemoryTalentRepository>();
-        services.AddSingleton<IAuditLogger, InMemoryAuditLogger>();
+        // ----- Persistence & audit: durable Cosmos DB when configured, in-memory otherwise -----
+        if (azure.CosmosDb.IsConfigured)
+        {
+            services.AddSingleton<CosmosContext>();
+            services.AddSingleton<ITalentRepository, CosmosTalentRepository>();
+            services.AddSingleton<IAuditLogger, CosmosAuditLogger>();
+        }
+        else
+        {
+            services.AddSingleton<ITalentRepository, InMemoryTalentRepository>();
+            services.AddSingleton<IAuditLogger, InMemoryAuditLogger>();
+        }
+
         services.AddScoped<IRagRetrievalService, RagRetrievalService>();
 
         // ----- Semantic Kernel text generation (live vs. fallback via IsLive flag) -----

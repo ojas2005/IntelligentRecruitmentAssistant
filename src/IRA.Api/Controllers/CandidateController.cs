@@ -44,7 +44,7 @@ public class CandidateController : ControllerBase
     [Authorize(Policy = RecruitmentPolicies.CandidatePortal)]
     public async Task<ActionResult<CandidateDto>> Me(CancellationToken ct)
     {
-        var candidateId = _users.Find(_currentUser.Username)?.CandidateId;
+        var candidateId = (await _users.FindAsync(_currentUser.Username, ct))?.CandidateId;
         if (candidateId is null)
         {
             return NoContent();

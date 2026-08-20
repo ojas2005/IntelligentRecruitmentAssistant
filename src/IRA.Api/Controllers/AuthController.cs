@@ -34,7 +34,7 @@ public class AuthController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<AuthResultDto>> Login([FromBody] LoginRequestDto request, CancellationToken ct)
     {
-        var user = _users.Find(request.Username);
+        var user = await _users.FindAsync(request.Username, ct);
         if (user is null || !PasswordHasher.Verify(request.Password, user.PasswordHash))
         {
             return Unauthorized(new { message = "Invalid username or password." });
@@ -61,8 +61,8 @@ public class AuthController : ControllerBase
             return BadRequest(new { message = "Password must be at least 6 characters." });
         }
 
-        if (!_users.TryRegisterCandidate(request.Username, request.Password, request.DisplayName, request.Email, out var user)
-            || user is null)
+        var user = await _users.TryRegisterCandidateAsync(request.Username, request.Password, request.DisplayName, request.Email, ct);
+        if (user is null)
         {
             return Conflict(new { message = "That username is already taken." });
         }
@@ -76,9 +76,9 @@ public class AuthController : ControllerBase
     /// <summary>Returns the authenticated user's identity and roles.</summary>
     [HttpGet("me")]
     [Authorize]
-    public ActionResult<UserProfileDto> Me()
+    public async Task<ActionResult<UserProfileDto>> Me(CancellationToken ct)
     {
-        var user = _users.Find(_currentUser.Username);
+        var user = await _users.FindAsync(_currentUser.Username, ct);
         var roles = User.FindAll(RecruitmentClaims.Role).Select(c => c.Value).Distinct().ToList();
 
         return Ok(new UserProfileDto(
