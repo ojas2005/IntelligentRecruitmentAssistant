@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360" role="img" aria-label="Intelligent Recruitment Assistant">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1022"/>
+      <stop offset="0.55" stop-color="#111834"/>
+      <stop offset="1" stop-color="#0a1a2b"/>
+    </linearGradient>
+    <radialGradient id="blob1" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#5b8cff" stop-opacity="0.55"/><stop offset="1" stop-color="#5b8cff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="blob2" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ff9d6c" stop-opacity="0.5"/><stop offset="1" stop-color="#ff9d6c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="blob3" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#43e0a0" stop-opacity="0.45"/><stop offset="1" stop-color="#43e0a0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7aa2ff"/><stop offset="1" stop-color="#43e0a0"/>
+    </linearGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="26"/></filter>
+    <style>
+      text{font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+      .serif{font-family:Georgia,'Times New Roman',serif}
+    </style>
+  </defs>
+
+  <rect width="1200" height="360" rx="24" fill="url(#bg)"/>
+
+  <!-- drifting aurora -->
+  <g filter="url(#soft)">
+    <circle cx="230" cy="120" r="150" fill="url(#blob1)">
+      <animateTransform attributeName="transform" type="translate" values="0 0; 60 40; 0 0" dur="14s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="980" cy="90" r="150" fill="url(#blob2)">
+      <animateTransform attributeName="transform" type="translate" values="0 0; -50 50; 0 0" dur="18s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="620" cy="330" r="170" fill="url(#blob3)">
+      <animateTransform attributeName="transform" type="translate" values="0 0; 40 -40; 0 0" dur="16s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- subtle dot grid -->
+  <g fill="#ffffff" opacity="0.05">
+    <circle cx="60" cy="300" r="2"/><circle cx="110" cy="300" r="2"/><circle cx="160" cy="300" r="2"/>
+    <circle cx="60" cy="330" r="2"/><circle cx="110" cy="330" r="2"/><circle cx="160" cy="330" r="2"/>
+  </g>
+
+  <!-- eyebrow pill -->
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" dur="0.7s" begin="0.1s" fill="freeze"/>
+    <rect x="70" y="52" width="330" height="34" rx="17" fill="#ffffff" opacity="0.08"/>
+    <circle cx="92" cy="69" r="5" fill="#43e0a0">
+      <animate attributeName="opacity" values="1;0.35;1" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <text x="108" y="74" fill="#c7d2ea" font-size="14" letter-spacing="2.5">AI-POWERED TALENT ACQUISITION</text>
+  </g>
+
+  <!-- title -->
+  <g opacity="0" transform="translate(0,16)">
+    <animate attributeName="opacity" from="0" to="1" dur="0.8s" begin="0.35s" fill="freeze"/>
+    <animateTransform attributeName="transform" type="translate" from="0 16" to="0 0" dur="0.8s" begin="0.35s" fill="freeze"/>
+    <text class="serif" x="68" y="150" fill="#ffffff" font-size="58" font-weight="600">Intelligent</text>
+    <text class="serif" x="68" y="212" fill="#ffffff" font-size="58" font-weight="600">Recruitment <tspan fill="#8fb3ff">Assistant</tspan></text>
+  </g>
+
+  <!-- subtitle -->
+  <text x="70" y="252" fill="#9fb0cc" font-size="17" opacity="0">
+    <animate attributeName="opacity" from="0" to="1" dur="0.8s" begin="0.7s" fill="freeze"/>
+    Screen 100 resumes in minutes — grounded, auditable, AI-powered rankings.
+  </text>
+
+  <!-- tech pills -->
+  <g font-size="13.5" fill="#dbe4f5">
+    <g opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="0.9s" fill="freeze"/>
+      <rect x="70" y="286" width="86" height="30" rx="15" fill="#ffffff" opacity="0.08"/><text x="113" y="306" text-anchor="middle">.NET 9</text></g>
+    <g opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="1.02s" fill="freeze"/>
+      <rect x="166" y="286" width="120" height="30" rx="15" fill="#ffffff" opacity="0.08"/><text x="226" y="306" text-anchor="middle">Azure OpenAI</text></g>
+    <g opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="1.14s" fill="freeze"/>
+      <rect x="296" y="286" width="140" height="30" rx="15" fill="#ffffff" opacity="0.08"/><text x="366" y="306" text-anchor="middle">Semantic Kernel</text></g>
+    <g opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="1.26s" fill="freeze"/>
+      <rect x="446" y="286" width="66" height="30" rx="15" fill="#ffffff" opacity="0.08"/><text x="479" y="306" text-anchor="middle">RAG</text></g>
+    <g opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="1.38s" fill="freeze"/>
+      <rect x="522" y="286" width="108" height="30" rx="15" fill="#ffffff" opacity="0.08"/><text x="576" y="306" text-anchor="middle">Cosmos DB</text></g>
+  </g>
+
+  <!-- right: orbiting AI core -->
+  <g transform="translate(970,175)">
+    <circle r="118" fill="none" stroke="#2a3860" stroke-width="1.5" opacity="0.7"/>
+    <circle r="86" fill="none" stroke="#2a3860" stroke-width="1.5" opacity="0.7"/>
+    <circle r="118" fill="none" stroke="url(#ring)" stroke-width="3" stroke-linecap="round" stroke-dasharray="120 620">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="9s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="86" fill="none" stroke="url(#ring)" stroke-width="3" stroke-linecap="round" stroke-dasharray="80 460">
+      <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="7s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- core -->
+    <polygon points="0,-46 40,-23 40,23 0,46 -40,23 -40,-23" fill="#131c3a" stroke="url(#ring)" stroke-width="2.5"/>
+    <polygon points="0,-46 40,-23 40,23 0,46 -40,23 -40,-23" fill="none" stroke="#8fb3ff" stroke-width="2.5" opacity="0.6">
+      <animate attributeName="opacity" values="0.15;0.75;0.15" dur="2.4s" repeatCount="indefinite"/>
+    </polygon>
+    <text class="serif" x="0" y="10" text-anchor="middle" fill="#ffffff" font-size="30" font-weight="700">AI</text>
+
+    <!-- orbiting agent dots -->
+    <circle r="6" fill="#43e0a0"><animateMotion dur="9s" repeatCount="indefinite" path="M 0 -118 A 118 118 0 1 1 0 118 A 118 118 0 1 1 0 -118"/></circle>
+    <circle r="5" fill="#ff9d6c"><animateMotion dur="7s" repeatCount="indefinite" path="M 0 86 A 86 86 0 1 1 0 -86 A 86 86 0 1 1 0 86"/></circle>
+    <circle r="5" fill="#8fb3ff"><animateMotion dur="11s" repeatCount="indefinite" path="M 0 -118 A 118 118 0 1 1 0 118 A 118 118 0 1 1 0 -118" begin="-4s"/></circle>
+  </g>
+</svg>

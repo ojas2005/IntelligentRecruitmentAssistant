@@ -1,33 +1,25 @@
 <div align="center">
 
-# 🤖 Intelligent Recruitment Assistant
+<img src="docs/assets/hero.svg" alt="Intelligent Recruitment Assistant" width="100%" />
 
-### An AI-enabled .NET 9 application using Azure OpenAI, Semantic Kernel & Clean Architecture
+<br/>
 
-*Screen 100 resumes in minutes — not hours — with grounded, auditable, AI-powered candidate rankings.*
+![.NET](https://img.shields.io/badge/.NET-9.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-12-239120?style=for-the-badge&logo=csharp&logoColor=white)
+![Azure OpenAI](https://img.shields.io/badge/Azure-OpenAI-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
+![Cosmos DB](https://img.shields.io/badge/Cosmos%20DB-NoSQL-247FBC?style=for-the-badge&logo=azurecosmosdb&logoColor=white)
+![Semantic Kernel](https://img.shields.io/badge/Semantic-Kernel-7A5CFF?style=for-the-badge)
+![Tests](https://img.shields.io/badge/tests-43%20passing-1f9d63?style=for-the-badge)
 
-`ASP.NET Core 9` · `Azure OpenAI` · `Semantic Kernel` · `Azure AI Search (RAG)` · `Clean Architecture`
+**Screen 100 resumes in minutes — not hours — with grounded, auditable, AI-powered candidate rankings.**
 
 </div>
 
 ---
 
-## 📋 Agenda
+## 📋 Contents
 
-1. [The Problem](#-the-problem)
-2. [The Solution](#-the-solution-in-one-line)
-3. [What It Does](#-what-it-does)
-4. [Why It Matters (Business Value)](#-why-it-matters)
-5. [Solution Architecture](#-solution-architecture)
-6. [The AI Agents](#-the-ai-agents)
-7. [How RAG Keeps It Trustworthy](#-how-rag-keeps-it-trustworthy)
-8. [End-to-End Flow](#-end-to-end-flow)
-9. [Clean Architecture](#-clean-architecture)
-10. [Technology Stack](#-technology-stack)
-11. [A Real Example](#-a-real-example)
-12. [Trust, Safety & Governance](#-trust-safety--governance)
-13. [Expected Impact](#-expected-impact)
-14. [Project Structure](#-project-structure)
+[The Problem](#-the-problem) · [The Solution](#-the-solution) · [Core Flow](#-core-processing-flow) · [See It In Action](#-see-it-in-action) · [Two Portals](#-two-portals-one-app) · [AI Agents](#-the-ai-agents) · [RAG](#-how-rag-keeps-it-trustworthy) · [End-to-End](#-end-to-end-flow) · [Auth & Persistence](#-security--persistence) · [Clean Architecture](#-clean-architecture) · [Tech Stack](#-technology-stack) · [Getting Started](#-getting-started) · [Tests](#-tests)
 
 ---
 
@@ -44,7 +36,7 @@
 
 ---
 
-## 🟢 The Solution — in one line
+## 🟢 The Solution
 
 **An AI-powered talent-acquisition platform that reads resumes, matches them to a job, scores and ranks candidates, drafts interview questions, and explains every recommendation — with a human still in control.**
 
@@ -52,13 +44,13 @@ Recruiters upload a job description and a batch of resumes. Behind the scenes, a
 
 ---
 
-## ⚡ What It Does
+## 🎞 Core Processing Flow
 
-The system takes recruitment inputs and runs them through a consistent, five-stage pipeline:
+<div align="center">
 
-```
-  Extract  →  Analyze  →  Match  →  Generate Questions  →  Rank
-```
+<img src="docs/assets/flow.svg" alt="Extract → Analyze → Match → Generate Questions → Rank" width="100%" />
+
+</div>
 
 | Capability | What the recruiter gets |
 |---|---|
@@ -68,79 +60,42 @@ The system takes recruitment inputs and runs them through a consistent, five-sta
 | 🏆 **Candidate ranking** | A prioritized, ready-to-review shortlist |
 | ❓ **Interview questions** | Role-specific technical, behavioral & situational questions |
 | 🧾 **Explainable output** | Supporting reasoning and citations for every recommendation |
-| 🔒 **Full audit trail** | Every AI action and recruiter decision is logged |
-
-**Primary users:** Recruiters · Hiring Managers · Recruitment Administrators
+| 🔒 **Full audit trail** | Every AI action and recruiter decision is logged & persisted |
 
 ---
 
-## 💼 Why It Matters
+## 📸 See It In Action
 
 <div align="center">
 
-| Business objective | How the assistant delivers it |
-|---|---|
-| **Reduce screening time** | Automates resume parsing & first-pass evaluation |
-| **Improve shortlist quality** | Consistent, criteria-based scoring for every candidate |
-| **Accelerate hiring** | Turns hours of manual review into minutes |
-| **Better candidate–job fit** | Semantic matching + skill-gap analysis |
-| **Defensible decisions** | Grounded recommendations with citations & audit logs |
-| **Modernize the stack** | Practical, production-ready adoption of Azure OpenAI |
+| Recruiter Dashboard | Candidate Ranking |
+|:---:|:---:|
+| <img src="docs/screenshots/03-dashboard.png" width="420"/> | <img src="docs/screenshots/08-ranking.png" width="420"/> |
+| **Job Descriptions** | **Candidates** |
+| <img src="docs/screenshots/04-jobs-list.png" width="420"/> | <img src="docs/screenshots/07-candidates.png" width="420"/> |
+| **Resume Upload** | **Analytics & Audit Trail** |
+| <img src="docs/screenshots/06-resume-upload.png" width="420"/> | <img src="docs/screenshots/09-analytics.png" width="420"/> |
 
 </div>
 
-> **Success measure:** *Faster hiring, improved candidate quality, and reduced screening effort.*
-
 ---
 
-## 🏗 Solution Architecture
+## 🚪 Two Portals, One App
 
-A layered, cloud-native design: an MVC/API front door, a Semantic Kernel orchestration brain, a team of AI agents, and Azure AI services underneath.
+The MVC frontend serves **two role-based experiences** behind a single JWT login:
 
-```mermaid
-flowchart TB
-    R["👤 Recruiter / Hiring Manager / Admin"]
+<div align="center">
 
-    subgraph Presentation["Presentation & API"]
-        MVC["ASP.NET Core MVC UI<br/>Dashboards · Upload · Rankings"]
-        API["ASP.NET Core Web API .NET 9<br/>Auth · Resume · Matching · Ranking · Audit"]
-    end
+| 🧑‍💼 Recruiter Portal | 👤 Candidate Portal |
+|:---:|:---:|
+| Dashboard · Jobs · Candidates · Ranking · Analytics | My profile · Upload resume · Browse open roles |
+| <img src="docs/screenshots/01-login.png" width="420"/> | <img src="docs/screenshots/10-portal-home.png" width="420"/> |
+| **Recruiters, Hiring Managers & Admins** run the full evaluation pipeline | **Candidates** register, upload a resume, and track their parsed profile |
+| <img src="docs/screenshots/05-job-create.png" width="420"/> | <img src="docs/screenshots/11-portal-profile.png" width="420"/> |
 
-    subgraph Orchestration["AI Orchestration"]
-        SK["🧠 Semantic Kernel Orchestrator"]
-        subgraph Agents["Specialized AI Agents"]
-            A1["Resume Parser"]
-            A2["Job Matching"]
-            A3["Interview"]
-            A4["Ranking"]
-            A5["Reviewer"]
-        end
-    end
+</div>
 
-    subgraph AzureAI["Azure AI Services"]
-        DI["Document Intelligence<br/>resume extraction"]
-        OAI["Azure OpenAI<br/>GPT-4o / GPT-4.1 + Embeddings"]
-        SEARCH["Azure AI Search<br/>Vector Database + RAG"]
-    end
-
-    subgraph Platform["Storage & Platform"]
-        BLOB["Blob Storage"]
-        ENTRA["Microsoft Entra ID"]
-        KV["Key Vault"]
-        MON["Application Insights"]
-    end
-
-    R --> MVC --> API --> SK
-    SK --> Agents
-    Agents --> OAI
-    A1 --> DI
-    A2 --> SEARCH
-    OAI --> SEARCH
-    API --> BLOB
-    API -.auth.-> ENTRA
-    API -.secrets.-> KV
-    API -.telemetry.-> MON
-```
+> Roles: **Recruiter · Hiring Manager · Recruitment Administrator · Candidate.** Authorization is enforced at the API (policies) and the UI (role-based navigation). Admins additionally see the Analytics / audit trail.
 
 ---
 
@@ -182,24 +137,20 @@ flowchart TB
         P1 --> EM1["Generate embeddings<br/>Azure OpenAI"]
         EM1 --> V1["Store vectors + metadata<br/>Azure AI Search"]
     end
-
     subgraph Query["② Query — evaluate a candidate"]
         Q1["Candidate vs Job Description"] --> S1["Semantic retrieval<br/>of role requirements"]
         S1 --> C1["Augment prompt<br/>with retrieved context"]
         C1 --> G1["Azure OpenAI generates<br/>grounded recommendation"]
         G1 --> RVW["Reviewer Agent<br/>validates before display"]
     end
-
     V1 -. knowledge base .-> S1
 ```
 
-**Why this matters to the business:** recommendations stay anchored to *approved hiring criteria*, not model guesswork — which means **better alignment, less hallucination, and traceable, defensible decisions**.
+**Why this matters:** recommendations stay anchored to *approved hiring criteria*, not model guesswork — meaning **better alignment, less hallucination, and traceable, defensible decisions**.
 
 ---
 
 ## 🔄 End-to-End Flow
-
-What actually happens when a recruiter drops in a job and a stack of resumes:
 
 ```mermaid
 sequenceDiagram
@@ -232,14 +183,30 @@ sequenceDiagram
 
 ---
 
+## 🔐 Security & Persistence
+
+| Concern | How it's handled |
+|---|---|
+| **Authentication** | Self-issued **JWT** bearer tokens with a username/password login (`/api/auth/login`, `/api/auth/register`); Microsoft **Entra ID** supported when configured |
+| **Authorization** | Role-based policies (`Recruiters`, `Administrators`, `CandidatePortal`) on every API endpoint; role-aware navigation in the UI |
+| **Password safety** | Salted **PBKDF2-SHA256** hashing — plaintext passwords are never stored |
+| **Durable storage** | **Azure Cosmos DB (NoSQL)** persists candidates, resumes, jobs, evaluations, rankings, interview kits, the audit trail **and user accounts** — data survives API restarts |
+| **Auditability** | Every recruiter action, evaluation and AI activity is logged and queryable |
+| **Resilience** | Every Azure integration has a deterministic **offline fallback** (in-memory store, hash embeddings, plain-text extractor) so the app runs with zero keys |
+| **Secrets** | Real keys live in a gitignored `appsettings.*.Local.json` overlay or Azure **Key Vault** — never in source control |
+
+> 🗄 **Cosmos DB design:** one database, eight containers sharing a single 400 RU/s throughput pool (fits the free tier). When Cosmos isn't configured the app transparently falls back to an in-memory store — verified by round-trip mapping tests.
+
+---
+
 ## 🧱 Clean Architecture
 
-The codebase follows **Clean Architecture** — business logic sits at the center and knows nothing about Azure. Cloud services are plug-in adapters, which keeps the system **testable, maintainable, and vendor-swappable**.
+Business logic sits at the center and knows nothing about Azure. Cloud services are plug-in adapters, keeping the system **testable, maintainable, and vendor-swappable**.
 
 ```mermaid
 flowchart TB
     subgraph API["🌐 IRA.Api — Presentation / API"]
-        C["Controllers · Auth (Entra ID) · Swagger"]
+        C["Controllers · JWT Auth · Swagger"]
     end
     subgraph APP["⚙️ IRA.Application — Use Cases"]
         AP["CQRS handlers · Orchestrator<br/>DTOs · Validation · Interfaces"]
@@ -248,9 +215,13 @@ flowchart TB
         D["Entities · Value Objects · Rules<br/>zero external dependencies"]
     end
     subgraph INF["🔌 IRA.Infrastructure — Adapters"]
-        IN["AI Agents · Azure OpenAI · AI Search<br/>Doc Intelligence · Blob · Audit · Resilience"]
+        IN["AI Agents · Azure OpenAI · AI Search<br/>Doc Intelligence · Blob · Cosmos DB · Resilience"]
+    end
+    subgraph WEB["🖥 IRA.Web — MVC Frontend"]
+        W["Recruiter & Candidate portals"]
     end
 
+    WEB --> API
     API --> APP
     INF --> APP
     APP --> DOM
@@ -259,83 +230,80 @@ flowchart TB
 
 **The dependency rule:** everything points *inward* toward the domain. `IRA.Domain` has no dependency on Azure SDKs or any framework — so the core hiring logic can be unit-tested in isolation and the AI providers can be replaced without touching business rules.
 
-| Layer | Contains |
-|---|---|
-| **Domain** | Candidate, Resume, JobDescription, Skill, Evaluation & Ranking entities; FitScore, SkillGap, Citation value objects; matching & recommendation rules |
-| **Application** | CQRS commands/queries, the recruitment orchestrator, DTOs, FluentValidation, and all service interfaces |
-| **Infrastructure** | The five AI agents, Azure OpenAI, Azure AI Search, Document Intelligence, Blob Storage, audit logging, retry/resilience |
-| **API** | ASP.NET Core Web API (.NET 9) controllers, Entra ID authentication, Swagger |
-
 ---
 
 ## 🧰 Technology Stack
 
 | Tool / Service | Purpose |
 |---|---|
-| **ASP.NET Core MVC (.NET 9)** | Front-end user interface |
+| **ASP.NET Core MVC (.NET 9)** | Front-end UI — recruiter & candidate portals |
 | **ASP.NET Core Web API (.NET 9)** | Backend service layer |
 | **Azure OpenAI** *(GPT-4o / GPT-4.1)* | Candidate analysis & response generation |
 | **Azure OpenAI Embeddings** | Vector embedding generation |
 | **Azure AI Search** | Semantic search & vector database |
 | **Azure Document Intelligence** | Resume extraction |
 | **Semantic Kernel** | AI orchestration & agent framework |
-| **Azure AI Foundry** | Model governance |
+| **Azure Cosmos DB (NoSQL)** | Durable persistence across restarts |
 | **Azure Blob Storage** | Resume & JD storage |
-| **Microsoft Entra ID** | Authentication & authorization |
+| **JWT / Microsoft Entra ID** | Authentication & authorization |
 | **Azure Key Vault** | Secret management |
 | **Application Insights** | Monitoring & observability |
-| **xUnit** | Automated testing |
+| **xUnit** | Automated testing — 43 tests |
 
 ---
 
-## 🎬 A Real Example
+## 🚀 Getting Started
 
-> **Scenario:** A recruiter uploads a **Software Developer** job description and **100 candidate resumes.**
+**Prerequisites:** .NET SDK 9. No Azure keys required — the app runs on offline fallbacks out of the box.
 
-**The system:**
+```bash
+# 1. Build
+dotnet build IntelligentRecruitmentAssistant.slnx
 
-1. Ingests resumes through the application and extracts skills & experience *(Resume Parser Agent)*
-2. Compares each profile against the JD *(Job Matching Agent)*
-3. Retrieves the relevant competency requirements *(Azure AI Search / RAG)*
-4. Orchestrates the evaluation *(Semantic Kernel)*
-5. Generates candidate summaries *(Azure OpenAI)*
-6. Drafts interview questions *(Interview Agent)*
-7. Validates the results *(Reviewer Agent)*
-8. Produces the final shortlist *(Ranking Agent)*
+# 2. Run the API (backend)   → http://localhost:5180  (Swagger at /swagger)
+dotnet run --project src/IRA.Api
 
-**The recruiter receives:**
+# 3. Run the MVC frontend    → http://localhost:5280
+dotnet run --project src/IRA.Web
+```
 
-✅ Candidate summaries generated &nbsp;·&nbsp; ✅ Skill-gap analysis &nbsp;·&nbsp; ✅ Ranked shortlist &nbsp;·&nbsp; ✅ Interview questions &nbsp;·&nbsp; ✅ Recommendations &nbsp;·&nbsp; ✅ Full evaluation audit trail
+Open **http://localhost:5280** and sign in with a demo account (password `Passw0rd!`):
 
----
-
-## 🛡 Trust, Safety & Governance
-
-Built for an environment where hiring decisions must be **fair, explainable, and auditable.**
-
-| Concern | How it's handled |
+| Username | Role |
 |---|---|
-| **Explainability** | Every recommendation ships with supporting reasoning and citations |
-| **Human oversight** | The Reviewer Agent validates output *before* the recruiter sees it |
-| **Grounding** | RAG keeps recommendations tied to approved job criteria |
-| **Security** | Microsoft Entra ID authentication & role-based authorization |
-| **Auditability** | Recruiter actions, evaluations, and AI activity are all logged |
-| **Resilience** | Fallback mechanisms keep the system usable during AI-service disruptions |
-| **Observability** | Application Insights monitoring across the platform |
+| `recruiter` | Recruiter |
+| `manager` | Hiring Manager |
+| `admin` | Administrator (+ Analytics) |
+| `candidate` | Candidate portal |
 
----
-
-## 📈 Expected Impact
+> Candidates can also self-register. To enable live Azure services (incl. Cosmos DB persistence), fill in `src/IRA.Api/appsettings.Development.Local.json` — any section left blank uses the offline fallback.
 
 <div align="center">
-
-| ⏱ Faster | 🎯 Better | 🔍 Defensible |
-|:---:|:---:|:---:|
-| Hours of screening → minutes | Consistent, criteria-based shortlists | Grounded, cited, fully audited |
-
+<img src="docs/screenshots/13-swagger.png" width="720" alt="Swagger API"/>
 </div>
 
-**Acceptance criteria met:** accurate resume parsing · correct semantic matching · relevant AI-generated interview questions · validated recommendations · accurate rankings · all actions auditable · recommendations grounded in approved hiring criteria.
+---
+
+## 🧪 Tests
+
+```bash
+dotnet test IntelligentRecruitmentAssistant.slnx
+```
+
+**43 tests pass** with no Azure configuration:
+
+| Test type | Location |
+|---|---|
+| Unit / domain rules | `tests/IRA.UnitTests/DomainRulesTests.cs` |
+| Resume parsing | `tests/IRA.UnitTests/ResumeParsingTests.cs` |
+| Candidate matching | `tests/IRA.UnitTests/CandidateMatchingTests.cs` |
+| RAG retrieval | `tests/IRA.UnitTests/RagRetrievalTests.cs` |
+| AI agent workflow | `tests/IRA.UnitTests/AgentWorkflowTests.cs` |
+| Interview generation | `tests/IRA.UnitTests/InterviewQuestionGenerationTests.cs` |
+| Cosmos mapping round-trip | `tests/IRA.UnitTests/CosmosMappingTests.cs` |
+| JWT authentication | `tests/IRA.IntegrationTests/JwtAuthenticationTests.cs` |
+| Authorization (401/403/200) | `tests/IRA.IntegrationTests/AuthorizationTests.cs` |
+| Integration (end-to-end) | `tests/IRA.IntegrationTests/RecruitmentFlowIntegrationTests.cs` |
 
 ---
 
@@ -348,11 +316,10 @@ Intelligent_Recruitment_Assistant/
     ├── IRA.Domain/            💎 Core business — entities, value objects, rules (no dependencies)
     ├── IRA.Application/       ⚙️ Use cases — CQRS, orchestrator, DTOs, validation, interfaces
     ├── IRA.Infrastructure/    🔌 Adapters — AI agents, Azure OpenAI, AI Search, Doc Intelligence,
-    │                             Blob storage, audit, resilience
-    └── IRA.Api/               🌐 ASP.NET Core Web API (.NET 9) — controllers, Entra ID auth, Swagger
+    │                             Cosmos DB, Blob storage, audit, resilience
+    ├── IRA.Api/               🌐 ASP.NET Core Web API (.NET 9) — controllers, JWT auth, Swagger
+    └── IRA.Web/               🖥 ASP.NET Core MVC — recruiter & candidate portals
 ```
-
-> **Note on design:** the solution ships with both cloud adapters (Azure OpenAI, Azure AI Search, Blob Storage) and lightweight local fallbacks (deterministic embeddings, in-memory vector store & repository, local file storage) — so the platform can run and be demonstrated end-to-end even without live Azure credentials.
 
 ---
 
@@ -361,6 +328,6 @@ Intelligent_Recruitment_Assistant/
 ### Intelligent Recruitment Assistant
 **AI-powered candidate screening, matching, interview preparation & ranking**
 
-*Powered by .NET 9 · Azure OpenAI · Semantic Kernel · Clean Architecture*
+*Powered by .NET 9 · Azure OpenAI · Semantic Kernel · Cosmos DB · Clean Architecture*
 
 </div>
