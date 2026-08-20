@@ -26,12 +26,23 @@
         });
     }
 
-    // ----- Scroll reveal -----
+    // ----- Scroll reveal (with per-row stagger) -----
     var reveals = document.querySelectorAll('.reveal');
     if (reveals.length) {
         if (reduceMotion || !('IntersectionObserver' in window)) {
             reveals.forEach(function (el) { el.classList.add('in'); });
         } else {
+            // Stagger cards that share a Bootstrap .row so they cascade in, not all at once.
+            reveals.forEach(function (el) {
+                var row = el.closest('.row');
+                var idx = 0;
+                if (row) {
+                    var group = row.querySelectorAll('.reveal');
+                    idx = Array.prototype.indexOf.call(group, el);
+                }
+                el.style.transitionDelay = Math.min(idx, 8) * 70 + 'ms';
+            });
+
             var io = new IntersectionObserver(function (entries) {
                 entries.forEach(function (entry) {
                     if (entry.isIntersecting) {
@@ -44,10 +55,13 @@
         }
     }
 
-    // ----- Mobile nav toggle -----
+    // ----- Mobile nav toggle (animated via .open class + CSS transitions) -----
     var nav = document.querySelector('.app-nav');
     var toggle = document.querySelector('.nav-toggle');
     if (nav && toggle) {
-        toggle.addEventListener('click', function () { nav.classList.toggle('open'); });
+        toggle.addEventListener('click', function () {
+            var open = nav.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
     }
 })();

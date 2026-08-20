@@ -3,7 +3,7 @@
   <!--
     Presentation Layer — ASP.NET Core MVC (.NET 9).
     Two portals: a recruiter portal and a candidate ("user") portal, gated by role.
-    Cookie auth over a JWT login against the Web API (Entra ID supported by the API too).
+    Cookie auth over a JWT login against the Web API.
   -->
   <PropertyGroup>
     <RootNamespace>IRA.Web</RootNamespace>

@@ -10,7 +10,7 @@ namespace IRA.Api.Controllers;
 
 /// <summary>
 /// Authentication APIs — self-issued JWT login &amp; candidate registration, plus the
-/// identity of the current user. Used when Microsoft Entra ID is not configured.
+/// identity of the current user.
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]

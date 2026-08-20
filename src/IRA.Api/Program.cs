@@ -6,7 +6,6 @@ using IRA.Infrastructure;
 using IRA.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,24 +45,13 @@ builder.Services.AddSingleton(jwtOptions);
 builder.Services.AddSingleton<JwtTokenService>();
 builder.Services.AddSingleton<IUserStore, InMemoryUserStore>();
 
-// Microsoft Entra ID takes over when configured; otherwise the self-issued JWT scheme is used.
-var entraConfigured = !string.IsNullOrWhiteSpace(builder.Configuration["AzureAd:ClientId"]);
-if (entraConfigured)
-{
-    builder.Services
-        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
-}
-else
-{
-    builder.Services
-        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new JwtTokenService(jwtOptions).ValidationParameters;
-            options.MapInboundClaims = false;
-        });
-}
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new JwtTokenService(jwtOptions).ValidationParameters;
+        options.MapInboundClaims = false;
+    });
 
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy(RecruitmentPolicies.Recruiters, p => p.RequireRole(RecruitmentRoles.RecruiterRoles))

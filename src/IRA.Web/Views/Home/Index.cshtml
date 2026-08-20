@@ -4,7 +4,6 @@
 }
 
 <section class="hero" style="padding:2.5rem 0 2rem;text-align:left">
-    <span class="eyebrow"><span class="dot"></span> Recruiter portal</span>
     <h1 class="display" style="font-size:clamp(2.4rem,6vw,4.5rem)">Recruitment<br />dashboard.</h1>
 </section>
 
@@ -18,7 +17,7 @@
 
 <div class="row g-4 mb-4">
     <div class="col-md-4">
-        <div class="card tilt lift stat-tile h-100" data-tilt>
+        <div class="card tilt lift stat-tile h-100 reveal" data-tilt>
             <div class="pop">
                 <span class="section-label">Candidates</span>
                 <div class="stat-number mt-2">@Model.Candidates.Count</div>
@@ -26,7 +25,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card tilt lift stat-tile h-100" data-tilt>
+        <div class="card tilt lift stat-tile h-100 reveal" data-tilt>
             <div class="pop">
                 <span class="section-label">Job descriptions</span>
                 <div class="stat-number mt-2">@Model.Jobs.Count</div>
@@ -34,7 +33,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card lift stat-tile h-100">
+        <div class="card lift stat-tile h-100 reveal">
             <span class="section-label">Quick actions</span>
             <div class="d-grid gap-2 mt-3">
                 <a class="btn btn-primary" asp-controller="Resume" asp-action="Index">Upload resumes</a>

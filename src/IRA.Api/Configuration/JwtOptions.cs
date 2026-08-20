@@ -1,9 +1,9 @@
 namespace IRA.Api.Configuration;
 
 /// <summary>
-/// Settings for the self-issued JWT bearer scheme. Used when Microsoft Entra ID is not
-/// configured so the API has real token-based authentication out of the box. In production,
-/// store <see cref="SigningKey"/> in Azure Key Vault rather than appsettings.
+/// Settings for the self-issued JWT bearer scheme, giving the API real token-based
+/// authentication out of the box. In production, store <see cref="SigningKey"/> in
+/// Azure Key Vault rather than appsettings.
 /// </summary>
 public class JwtOptions
 {

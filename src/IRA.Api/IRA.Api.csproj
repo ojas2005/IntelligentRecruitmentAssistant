@@ -3,7 +3,7 @@
   <!--
     API Layer — ASP.NET Core Web API (.NET 9).
     Backend service layer exposing Auth, Resume, Candidate, JD, Matching,
-    Interview, Ranking and Audit endpoints. Secured with Microsoft Entra ID.
+    Interview, Ranking and Audit endpoints. Secured with self-issued JWT bearer auth.
   -->
   <PropertyGroup>
     <RootNamespace>IRA.Api</RootNamespace>
@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Identity.Web" Version="3.8.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
   </ItemGroup>
